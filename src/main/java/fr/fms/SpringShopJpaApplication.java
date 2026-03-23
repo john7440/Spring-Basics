@@ -36,7 +36,7 @@ public class SpringShopJpaApplication implements CommandLineRunner {
 //        articleRepository.save(new Article("Apple", "Ipad 12", 1500, tablet));
 //        articleRepository.save(new Article("Apple", "Ipad 15", 3500, tablet));
 //
-//        articleRepository.save(new Article("Apple", "MacBook Pro", 5500, pc));
+ //       articleRepository.save(new Article("Apple", "MacBook Pro", 5500, pc));
 
 //        for (Article article : articleRepository.findAll()) {
 //            System.out.println(article.toString());
@@ -64,7 +64,7 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         //----------------------------------------------------------------------------------
 
         //question 1.4
-//        articleRepository.deleteById(15L);
+//        articleRepository.deleteById(16L);
 //        System.out.println("--------------Question 1.4-------------------");
 //        System.out.println("Article deleted successfully");
         //------------------------------------------------------------
@@ -90,7 +90,12 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         categoriesAsc.forEach(System.out::println);
         System.out.println("--------------Desc-------------------");
         categoriesDesc.forEach(System.out::println);
+        //-----------------------------------------------------------------------
 
+        //question 1.7
+        System.out.println("--------------Question 1.7-------------------");
+        List <Article> articlesDesc = articleRepository.findAllByOrderByPriceDesc();
+        articlesDesc.forEach(System.out::println);
 
     }
 
