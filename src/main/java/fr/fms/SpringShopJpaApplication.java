@@ -80,6 +80,16 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         }
         List<Article> res = articleRepository.findByDescriptionContains("Test");
         res.forEach(System.out::println);
+        //---------------------------------------------------------------------------
+
+        //question 1.6
+        System.out.println("--------------Question 1.6-------------------");
+        System.out.println("--------------Asc-------------------");
+        List<Category> categoriesAsc = categoryRepository.findAllByOrderByNameAsc();
+        List<Category> categoriesDesc = categoryRepository.findAllByOrderByNameDesc();
+        categoriesAsc.forEach(System.out::println);
+        System.out.println("--------------Desc-------------------");
+        categoriesDesc.forEach(System.out::println);
 
 
     }
