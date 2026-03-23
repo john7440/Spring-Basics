@@ -31,6 +31,7 @@ public class Article implements Serializable {
         this.brand = brand;
         this.description = description;
         this.price = price;
+        this.category = category;
     }
 
     public Article(Long id,String brand, String description, double price) {
@@ -40,4 +41,8 @@ public class Article implements Serializable {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return (brand + " " + description + " " + price + " " + category.toString());
+    }
 }
