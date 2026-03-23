@@ -36,12 +36,12 @@ public class SpringShopJpaApplication implements CommandLineRunner {
 //        articleRepository.save(new Article("Apple", "Ipad 12", 1500, tablet));
 //        articleRepository.save(new Article("Apple", "Ipad 15", 3500, tablet));
 //
-//        articleRepository.save(new Article("Apple", "MacBook Pro", 5500, smartphone));
+//        articleRepository.save(new Article("Apple", "MacBook Pro", 5500, pc));
 
 //        for (Article article : articleRepository.findAll()) {
 //            System.out.println(article.toString());
 //        }
-
+        //----------------------------------------------------------------------------------------
         //question 1.2: method 1
         Optional<Article> opt = articleRepository.findById(1L);
         opt.ifPresent(a -> System.out.println(a));
@@ -51,6 +51,12 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         //all articles
         List<Article> articles = articleRepository.findAll();
         articles.forEach(System.out::println);
+        //----------------------------------------------------------------------------------
+        //question 1.3 (first part is in ArticleRepository)
+        List<Article> results = articleRepository.findByBrandAndDescriptionContains("Apple", "Ipad");
+        results.forEach(System.out::println);
+
+
     }
 
 }
