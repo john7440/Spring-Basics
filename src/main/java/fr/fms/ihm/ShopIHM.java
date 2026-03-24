@@ -22,7 +22,7 @@ public class ShopIHM {
         int choice = -1;
         while(choice!=12){
             printMenu();
-            choice = readInt("Votre choix : ");
+            choice = readInt();
             switch(choice){
                 case 1 -> showAllArticles();
                 case 2 -> showAllArticlesByPage();
@@ -66,9 +66,30 @@ public class ShopIHM {
 
     private void showAllArticles(){
         List<Article> articles = shopService.getAllArticles();
-        articles.forEach(System.out::println);
+        printArticlesList(articles);
     }
     //-------------------------------------------------------------------------
+
+    private void printArticlesList(List<Article> articles) {
+        if (articles.isEmpty()) {
+            System.out.println("Aucun article trouvé.");
+            return;
+        }
+        System.out.printf("%-5s %-15s %-20s %-10s %-15s%n",
+                "ID", "MARQUE", "DESCRIPTION", "PRIX", "CATÉGORIE");
+        System.out.println("-".repeat(70));
+        for (Article a : articles) {
+            System.out.printf("%-5d %-15s %-20s %-10.2f %-15s%n",
+                    a.getId(),
+                    a.getBrand(),
+                    a.getDescription(),
+                    a.getPrice(),
+                    a.getCategory() != null ? a.getCategory().getName() : "N/A");
+        }
+        System.out.println("-".repeat(70));
+    }
+    //-------------------------------------------------------------------------------
+
 
     private void printPage(Page<Article> page,int currentPage){
         System.out.printf("%-5s %-20s %-15s %-10s %-15s%n",
@@ -155,6 +176,7 @@ public class ShopIHM {
     //--------------------------------------------------------------------------
 
     private void updateArticle() {
+        showAllArticles();
         Long id = readLong("ID de l'article à modifier : ");
         Article a = shopService.getArticleById(id);
         if (a == null) { System.out.println("Article introuvable !"); return; }
@@ -168,6 +190,7 @@ public class ShopIHM {
     //-------------------------------------------------------------------------------
 
     private void deleteArticle(){
+        showAllArticles();
         Long id = readLong("\nId de l'article à supprimer: ");
         if (shopService.deleteArticleById(id)){
             System.out.println("\nArticle supprimé");
@@ -245,8 +268,8 @@ public class ShopIHM {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-------------------------------utility------------------------------
-    private int readInt(String prompt) {
-        System.out.print(prompt);
+    private int readInt() {
+        System.out.print("Votre choix : ");
         try {
            return Integer.parseInt(scanner.nextLine());
         }

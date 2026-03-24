@@ -50,7 +50,7 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         //question 1.2: method 1
         System.out.println("--------------Question 1.2 method 1-------------------");
         Optional<Article> opt = articleRepository.findById(12L);
-        opt.ifPresent(a -> System.out.println(a));
+        opt.ifPresent(System.out::println);
         //method 2
         System.out.println("--------------Question 1.2 method 2-------------------");
         Article a = articleRepository.findById(14L).orElse(null);

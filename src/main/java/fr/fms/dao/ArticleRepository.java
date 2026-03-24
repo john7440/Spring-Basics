@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article,Long> {
-    public List<Article> findByBrand(String brand);
-    public List<Article> findByBrandContains(String brand);
-    public List<Article> findByBrandAndPrice(String brand, double price);
-    public List<Article> findByCategoryId(Long categoryId);
+    //public List<Article> findByBrand(String brand);
+    //public List<Article> findByBrandContains(String brand);
+    //public List<Article> findByBrandAndPrice(String brand, double price);
+    List<Article> findByCategoryId(Long categoryId);
     //added for ex 1.3
-    public List<Article> findByBrandAndDescriptionContains(String brand, String description);
+    List<Article> findByBrandAndDescriptionContains(String brand, String description);
     //added for ex 1.5
-    public List<Article> findByDescriptionContains(String description);
-    //addes for ex 1.7
-    public List<Article> findAllByOrderByPriceDesc();
+    List<Article> findByDescriptionContains(String description);
+    //added for ex 1.7
+    List<Article> findAllByOrderByPriceDesc();
 }
