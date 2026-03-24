@@ -32,6 +32,9 @@ public class ShopIHM {
                 case 6 -> updateArticle();
                 case 7 -> addCategory();
                 case 8 -> showCategory();
+                case 9 -> deleteCategory();
+                case 10 -> updateCategory();
+                case 11 -> showAllArticlesByCategory();
                 case 12 -> System.out.println("\nAu revoir !");
                 default -> System.out.println("\nChoix invalide, veuillez réessayer...");
             }
@@ -173,9 +176,11 @@ public class ShopIHM {
             System.out.println("\nArticle introuvable");
         }
     }
+    //------------------------------------------------------------------------
     //-------------------------------------------------------------------------
     //-------------------------categories-----------------------------------
     private void showAllCategories() {
+        System.out.println("\n");
         shopService.getAllCategories().forEach(c ->
                 System.out.println(c.getId() + " - " + c.getName()));
     }
@@ -187,6 +192,7 @@ public class ShopIHM {
         shopService.saveCategory(category);
         System.out.println("\nCatégorie ajoutée");
     }
+    //---------------------------------------------------------------------
 
     private void showCategory(){
         Long id = readLong("\nId de la catégorie : ");
@@ -197,6 +203,46 @@ public class ShopIHM {
             System.out.println(category);
         }
     }
+    //-----------------------------------------------------------------------
+
+    private void updateCategory(){
+        showAllCategories();
+        Long id = readLong("Id de la catégorie à modifier: ");
+        Category category = shopService.getCategoryById(id);
+        if (category==null){
+            System.out.println("Catégorie non trouvée");
+            return;
+        }
+        category.setName(readString("Nouveau nom (" + category.getName() + ") : "));
+        shopService.saveCategory(category);
+        System.out.println("Catégorie mise à jour !");
+
+    }
+    //--------------------------------------------------------------
+
+    private void deleteCategory(){
+        showAllCategories();
+        Long id = readLong("Id de la catégorie a supprimée:");
+        Category category = shopService.getCategoryById(id);
+        if (category==null){
+            System.out.println("Catégorie introuvable");
+        }else {
+            shopService.deleteCategoryById(category.getId());
+        }
+    }
+    //------------------------------------------------------------
+
+    private void showAllArticlesByCategory() {
+        showAllCategories();
+        Long id = readLong("Id de la catégorie: \n");
+        List<Article> articles = shopService.getArticlesByCategory(id);
+        if (articles.isEmpty()){
+            System.out.println("\nAucun article dans cette catégorie");
+        } else {
+            articles.forEach(System.out::println);
+        }
+    }
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-------------------------------utility------------------------------
     private int readInt(String prompt) {
