@@ -1,9 +1,11 @@
 package fr.fms.ihm;
 
 import fr.fms.business.ShopService;
+import fr.fms.entities.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -16,6 +18,14 @@ public class ShopIHM {
 
     public void start(){
         int choice = -1;
+        while(choice!=12){
+            printMenu();
+            choice = readInt("Votre choix : ");
+            switch(choice){
+                case 1 -> showAllArticles();
+                default -> System.out.println("Choix invalide, veuillez réessayer...");
+            }
+        }
     }
 
     private void printMenu(){
@@ -35,6 +45,21 @@ public class ShopIHM {
         System.out.println("11: Afficher tous les articles d'une categorie");
         System.out.println("***************************");
         System.out.println("12: Sortir du programme");
+    }
+
+    //------------------------------articles-------------------------------------
+    private void showAllArticles(){
+        List<Article> articles = shopService.getAllArticles();
+        articles.forEach(System.out::println);
+    }
+
+    //-------------------------------utility------------------------------
+    private int readInt(String prompt) {
+        System.out.print(prompt);
+        try { int v = Integer.parseInt(scanner.nextLine()); return v; }
+        catch (Exception e) { return  -1; }
+        }
+
     }
 
 }
