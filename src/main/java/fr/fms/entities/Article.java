@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
+/**
+ * Represents an article
+ */
 @Entity
 public class Article implements Serializable {
     private static final long serialVersionUID = 1L;

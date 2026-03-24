@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *  Represents the console menu itself
+ */
 @Component
 public class ShopIHM {
 
@@ -60,16 +63,23 @@ public class ShopIHM {
         System.out.println("******************************");
         System.out.println("12: Sortir du programme\n\n");
     }
-
     //-----------------------------------------------------------------------------
     //------------------------------articles-------------------------------------
 
+    /**
+     * Show all articles presents in the table and format the result
+     * to be more readable
+     */
     private void showAllArticles(){
         List<Article> articles = shopService.getAllArticles();
         printArticlesList(articles);
     }
     //-------------------------------------------------------------------------
 
+    /**
+     *  The formatting of the list of articles
+     * @param articles
+     */
     private void printArticlesList(List<Article> articles) {
         if (articles.isEmpty()) {
             System.out.println("Aucun article trouvé.");
@@ -90,7 +100,11 @@ public class ShopIHM {
     }
     //-------------------------------------------------------------------------------
 
-
+    /**
+     * Represents the current page when pagination mode is used
+     * @param page
+     * @param currentPage
+     */
     private void printPage(Page<Article> page,int currentPage){
         System.out.printf("%-5s %-20s %-15s %-10s %-15s%n",
                 "ID", "DESCRIPTION", "MARQUE", "PRIX", "CATÉGORIE");
@@ -107,6 +121,9 @@ public class ShopIHM {
     }
     //----------------------------------------------------------------------
 
+    /**
+     *  Display the commands for the pagination menu
+     */
     private void printPageMenu() {
         System.out.println("\nEXIT pour sortir de la pagination");
         System.out.println("PREV pour afficher la page précédente");
@@ -147,7 +164,10 @@ public class ShopIHM {
     }
     //--------------------------------------------------------------------
 
-    private void  addArticle(){
+    /**
+     *  Method to add an article to the database
+     */
+    private void addArticle(){
         String brand = readString("Marque: ");
         String description = readString("Description: ");
         double price = readDouble("Prix: ");
@@ -164,6 +184,9 @@ public class ShopIHM {
     }
     //------------------------------------------------------------------------
 
+    /**
+     *  Method to show a specific article (with id)
+     */
     private void showArticle(){
         Long id = readLong("\nId de l'article: ");
         Article article = shopService.getArticleById(id);
@@ -175,6 +198,9 @@ public class ShopIHM {
     }
     //--------------------------------------------------------------------------
 
+    /**
+     *  Method to update an article (if it exists) in the database
+     */
     private void updateArticle() {
         showAllArticles();
         Long id = readLong("ID de l'article à modifier : ");
@@ -189,6 +215,9 @@ public class ShopIHM {
     }
     //-------------------------------------------------------------------------------
 
+    /**
+     *  Method to delete an article from the database
+     */
     private void deleteArticle(){
         showAllArticles();
         Long id = readLong("\nId de l'article à supprimer: ");
@@ -202,6 +231,10 @@ public class ShopIHM {
     //------------------------------------------------------------------------
     //-------------------------------------------------------------------------
     //-------------------------categories-----------------------------------
+
+    /**
+     * Method to show all categories (id + name)
+     */
     private void showAllCategories() {
         System.out.println("\n");
         shopService.getAllCategories().forEach(c ->
@@ -209,6 +242,9 @@ public class ShopIHM {
     }
     //----------------------------------------------------------------------
 
+    /**
+     *  Method to add a category to the database
+     */
     private void addCategory(){
         String name =  readString("\nNom de la catégorie : ");
         Category category = new Category(name);
@@ -217,6 +253,9 @@ public class ShopIHM {
     }
     //---------------------------------------------------------------------
 
+    /**
+     *  Method to show a specific category (by id)
+     */
     private void showCategory(){
         Long id = readLong("\nId de la catégorie : ");
         Category category = shopService.getCategoryById(id);
@@ -228,6 +267,9 @@ public class ShopIHM {
     }
     //-----------------------------------------------------------------------
 
+    /**
+     *  Method to update an already existing category
+     */
     private void updateCategory(){
         showAllCategories();
         Long id = readLong("Id de la catégorie à modifier: ");
@@ -243,6 +285,9 @@ public class ShopIHM {
     }
     //--------------------------------------------------------------
 
+    /**
+     *  Method to delete a category (by id)
+     */
     private void deleteCategory(){
         showAllCategories();
         Long id = readLong("Id de la catégorie a supprimée:");
@@ -255,6 +300,9 @@ public class ShopIHM {
     }
     //------------------------------------------------------------
 
+    /**
+     *  Method to display all articles in the chosen category (by id)
+     */
     private void showAllArticlesByCategory() {
         showAllCategories();
         Long id = readLong("Id de la catégorie: \n");
@@ -267,7 +315,12 @@ public class ShopIHM {
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    //-------------------------------utility------------------------------
+    //-------------------------------utilities------------------------------
+
+    /**
+     *  Utility method to valid an Int input
+     * @return int/-1
+     */
     private int readInt() {
         System.out.print("Votre choix : ");
         try {
@@ -278,6 +331,10 @@ public class ShopIHM {
         }
     //-----------------------------------------------------------
 
+    /**
+     *  Utility method to valid a String input
+     * @return String/''
+     */
     private String readString(String prompt) {
         System.out.print(prompt);
         try {
@@ -289,6 +346,10 @@ public class ShopIHM {
     }
     //--------------------------------------------------------------
 
+    /**
+     *  Utility method to valid a Double input
+     * @return double/ 0.0
+     */
     private double readDouble(String prompt) {
         System.out.print(prompt);
         try {
@@ -300,6 +361,10 @@ public class ShopIHM {
     }
     //---------------------------------------------------------------
 
+    /**
+     *  Utility method to valid a Long input
+     * @return long/-1L
+     */
     private Long readLong(String prompt) {
         System.out.print(prompt);
         try {
