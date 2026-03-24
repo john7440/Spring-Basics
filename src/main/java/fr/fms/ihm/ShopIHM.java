@@ -2,6 +2,7 @@ package fr.fms.ihm;
 
 import fr.fms.business.ShopService;
 import fr.fms.entities.Article;
+import fr.fms.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,13 @@ public class ShopIHM {
     @Autowired
     private ShopService shopService;
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void start(){
         int choice = -1;
         while(choice!=12){
             printMenu();
-            choice = readInt("Votre choix : ")
+            choice = readInt("Votre choix : ");
             switch(choice){
                 case 1 -> showAllArticles();
                 case 2 -> showAllArticlesByPage();
@@ -52,11 +53,13 @@ public class ShopIHM {
 
     //-----------------------------------------------------------------------------
     //------------------------------articles-------------------------------------
+
     private void showAllArticles(){
         List<Article> articles = shopService.getAllArticles();
         articles.forEach(System.out::println);
     }
     //-------------------------------------------------------------------------
+
     private void printPage(Page<Article> page,int currentPage){
         System.out.printf("%-5s %-20s %-15s %-10s %-15s%n",
                 "ID", "DESCRIPTION", "MARQUE", "PRIX", "CATÉGORIE");
@@ -72,6 +75,7 @@ public class ShopIHM {
         System.out.printf("] NEXT%n");
     }
     //----------------------------------------------------------------------
+
     private void printPageMenu() {
         System.out.println("\nEXIT pour sortir de la pagination");
         System.out.println("PREV pour afficher la page précédente");
@@ -79,6 +83,7 @@ public class ShopIHM {
         System.out.println("PAGE puis 7 pour afficher 7 articles par page (par défaut c'est 5)\n\n");
     }
     //------------------------------------------------------------------------
+
     private void showAllArticlesByPage() {
         int size = 5;
         int currentPage= 0;
@@ -109,6 +114,22 @@ public class ShopIHM {
             }
         }
     }
+    //--------------------------------------------------------------------
+    private void  addArticle(){
+        String brand = readString("Marque: ");
+        String description = readString("Description: ");
+        double price = readDouble("Prix: ");
+        // TODO showAllCategories();
+        Long categoryId = readLong("Id de la catégorie: ");
+        Category category = shopService.getCategoryById(categoryId);
+        if (category==null){
+            System.out.println("Catégorie introuvable");
+            return;
+        }
+        Article article = new Article(brand,description,price,category);
+        shopService.saveArticle(article);
+        System.out.printf("Article %s ajouté", article.getDescription());
+    }
     //-----------------------------------------------------------------------
     //-------------------------------utility------------------------------
     private int readInt(String prompt) {
@@ -119,6 +140,39 @@ public class ShopIHM {
         catch (Exception e) {
             return  -1; }
         }
+    //-----------------------------------------------------------
+
+    private String readString(String prompt) {
+        System.out.print(prompt);
+        try {
+            return scanner.nextLine();
+        }
+        catch (Exception e) {
+            return  "";
+        }
+    }
+    //--------------------------------------------------------------
+
+    private double readDouble(String prompt) {
+        System.out.print(prompt);
+        try {
+            return Double.parseDouble(scanner.nextLine());
+        }
+        catch (Exception e) {
+            return  0.0;
+        }
+    }
+    //---------------------------------------------------------------
+
+    private Long readLong(String prompt) {
+        System.out.print(prompt);
+        try {
+            return Long.parseLong(scanner.nextLine());
+        }
+        catch (Exception e) {
+            return  -1L;
+        }
+    }
 
     }
 
