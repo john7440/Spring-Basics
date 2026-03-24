@@ -30,6 +30,8 @@ public class ShopIHM {
                 case 4 -> showArticle();
                 case 5 -> deleteArticle();
                 case 6 -> updateArticle();
+                case 7 -> addCategory();
+                case 8 -> showCategory();
                 case 12 -> System.out.println("\nAu revoir !");
                 default -> System.out.println("\nChoix invalide, veuillez réessayer...");
             }
@@ -125,7 +127,7 @@ public class ShopIHM {
         String brand = readString("Marque: ");
         String description = readString("Description: ");
         double price = readDouble("Prix: ");
-        // TODO showAllCategories();
+        showAllCategories();
         Long categoryId = readLong("Id de la catégorie: ");
         Category category = shopService.getCategoryById(categoryId);
         if (category==null){
@@ -139,10 +141,10 @@ public class ShopIHM {
     //------------------------------------------------------------------------
 
     private void showArticle(){
-        Long id = readLong("Id de l'article: ");
+        Long id = readLong("\nId de l'article: ");
         Article article = shopService.getArticleById(id);
         if (article==null){
-            System.out.println("Article introuvable");
+            System.out.println("\nArticle introuvable");
         }else {
             System.out.println(article);
         }
@@ -158,17 +160,41 @@ public class ShopIHM {
         a.setDescription(readString("Nouvelle description (" + a.getDescription() + ") : "));
         a.setPrice(readDouble("Nouveau prix (" + a.getPrice() + ") : "));
         shopService.saveArticle(a);
-        System.out.println("Article mis à jour !");
+        System.out.println("\nArticle mis à jour !");
     }
     //-------------------------------------------------------------------------------
 
     private void deleteArticle(){
-        Long id = readLong("Id de l'article à supprimer: ");
+        Long id = readLong("\nId de l'article à supprimer: ");
         if (shopService.deleteArticleById(id)){
-            System.out.println("Article supprimé");
+            System.out.println("\nArticle supprimé");
         }
         else{
-            System.out.println("Article introuvable");
+            System.out.println("\nArticle introuvable");
+        }
+    }
+    //-------------------------------------------------------------------------
+    //-------------------------categories-----------------------------------
+    private void showAllCategories() {
+        shopService.getAllCategories().forEach(c ->
+                System.out.println(c.getId() + " - " + c.getName()));
+    }
+    //----------------------------------------------------------------------
+
+    private void addCategory(){
+        String name =  readString("\nNom de la catégorie : ");
+        Category category = new Category(name);
+        shopService.saveCategory(category);
+        System.out.println("\nCatégorie ajoutée");
+    }
+
+    private void showCategory(){
+        Long id = readLong("\nId de la catégorie : ");
+        Category category = shopService.getCategoryById(id);
+        if (category==null){
+            System.out.println("\nCatégorie introuvable !");
+        }else  {
+            System.out.println(category);
         }
     }
     //-----------------------------------------------------------------------
