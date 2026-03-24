@@ -26,11 +26,16 @@ public class ShopIHM {
             switch(choice){
                 case 1 -> showAllArticles();
                 case 2 -> showAllArticlesByPage();
+                case 3 -> addArticle();
+                case 4 -> showArticle();
+                case 5 -> deleteArticle();
+                case 6 -> updateArticle();
                 case 12 -> System.out.println("\nAu revoir !");
                 default -> System.out.println("\nChoix invalide, veuillez réessayer...");
             }
         }
     }
+    //---------------------------------------------------------------------------------
 
     private void printMenu(){
         System.out.println("\nBienvenu dans notre application de gestion d'articles !");
@@ -115,6 +120,7 @@ public class ShopIHM {
         }
     }
     //--------------------------------------------------------------------
+
     private void  addArticle(){
         String brand = readString("Marque: ");
         String description = readString("Description: ");
@@ -129,6 +135,41 @@ public class ShopIHM {
         Article article = new Article(brand,description,price,category);
         shopService.saveArticle(article);
         System.out.printf("Article %s ajouté", article.getDescription());
+    }
+    //------------------------------------------------------------------------
+
+    private void showArticle(){
+        Long id = readLong("Id de l'article: ");
+        Article article = shopService.getArticleById(id);
+        if (article==null){
+            System.out.println("Article introuvable");
+        }else {
+            System.out.println(article);
+        }
+    }
+    //--------------------------------------------------------------------------
+
+    private void updateArticle() {
+        Long id = readLong("ID de l'article à modifier : ");
+        Article a = shopService.getArticleById(id);
+        if (a == null) { System.out.println("Article introuvable !"); return; }
+        System.out.println("Article actuel : " + a);
+        a.setBrand(readString("Nouvelle marque (" + a.getBrand() + ") : "));
+        a.setDescription(readString("Nouvelle description (" + a.getDescription() + ") : "));
+        a.setPrice(readDouble("Nouveau prix (" + a.getPrice() + ") : "));
+        shopService.saveArticle(a);
+        System.out.println("Article mis à jour !");
+    }
+    //-------------------------------------------------------------------------------
+
+    private void deleteArticle(){
+        Long id = readLong("Id de l'article à supprimer: ");
+        if (shopService.deleteArticleById(id)){
+            System.out.println("Article supprimé");
+        }
+        else{
+            System.out.println("Article introuvable");
+        }
     }
     //-----------------------------------------------------------------------
     //-------------------------------utility------------------------------
