@@ -9,7 +9,9 @@ developed as a Spring data JPA training exercise
 - [Features](#features)
 - [Architecture](#architecture)
 - [Technologies](#technologies)
-
+- [Installation](#installation)
+- [Database Setup](#database-setup)
+  
 ## Overview
 
 This application provides a console based admin interface for an e-commerce platform.  
@@ -59,3 +61,32 @@ The application follows a **multi-layered architecture**:
 - **Code Quality**: SonarQube
 - **Version Control**: Git
 
+## Installation
+
+### 1. Clone the repository
+```bash
+https://github.com/john7440/Spring-Basics.git
+```
+### 2.Open in IntellijIDEA
+1. File -> Open -> Select the project folder
+2. Wait for intellij to index the prject and download dependencies
+3. Verify that the Maven `pom.xml` is correctly recognized
+
+## Database Setup
+
+The database configuration is located in `src/main/resources/application.properties`:
+```text
+spring.application.name=SpringShopJpa
+
+#Database
+spring.datasource.url=jdbc:mariadb://localhost:3308/stock?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+
+#Jpa
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
+```
+Note: Update credentials if your MySQL setup uses a different port, username or password
