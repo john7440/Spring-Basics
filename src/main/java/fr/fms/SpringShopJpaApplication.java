@@ -4,7 +4,7 @@ import fr.fms.dao.ArticleRepository;
 import fr.fms.dao.CategoryRepository;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
-import fr.fms.ihm.ShopIHM;
+import fr.fms.ui.ShopUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +22,7 @@ public class SpringShopJpaApplication implements CommandLineRunner {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private ShopIHM shopIHM;
+    private ShopUI shopUI;
 
 	public static void main(String[] args) {
         SpringApplication.run(SpringShopJpaApplication.class, args);
@@ -51,21 +51,21 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         System.out.println("--------------Question 1.2 method 1-------------------");
         Optional<Article> opt = articleRepository.findById(12L);
         opt.ifPresent(System.out::println);
+
         //method 2
         System.out.println("--------------Question 1.2 method 2-------------------");
         Article a = articleRepository.findById(14L).orElse(null);
         if (a != null) System.out.println(a);
+
         //all articles
         System.out.println("--------------Question 1.2 List-------------------");
         List<Article> articles = articleRepository.findAll();
         articles.forEach(System.out::println);
-        //----------------------------------------------------------------------------------
 
         //question 1.3 (first part is in ArticleRepository)
         System.out.println("--------------Question 1.3-------------------");
         List<Article> results = articleRepository.findByBrandAndDescriptionContains("Apple", "Ipad");
         results.forEach(System.out::println);
-        //----------------------------------------------------------------------------------
 
         //question 1.4
 //        articleRepository.deleteById(16L);
@@ -102,7 +102,7 @@ public class SpringShopJpaApplication implements CommandLineRunner {
         articlesDesc.forEach(System.out::println);
 
         //TP
-        shopIHM.start();
+       shopUI.start();
 
     }
 

@@ -1,4 +1,4 @@
-package fr.fms.ihm;
+package fr.fms.ui;
 
 import fr.fms.business.ShopService;
 import fr.fms.entities.Article;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  *  Represents the console menu itself
  */
 @Component
-public class ShopIHM {
+public class ShopUI {
 
     @Autowired
     private ShopService shopService;
@@ -315,7 +315,7 @@ public class ShopIHM {
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    //-------------------------------utilities------------------------------
+    //-------------------------------utility------------------------------
 
     /**
      *  Utility method to valid an Int input
