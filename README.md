@@ -11,6 +11,7 @@ developed as a Spring data JPA training exercise
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Database Setup](#database-setup)
+- [Usage](#usage)
   
 ## Overview
 
@@ -90,3 +91,47 @@ spring.jpa.show-sql=false
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MariaDBDialect
 ```
 Note: Update credentials if your MySQL setup uses a different port, username or password
+
+## Usage
+
+Run the application  
+Option A: From IntelliJ IDEA
+
+Navigate to `src/main/java/fr/fms/SpringShopJpaApplication.java`  
+Right-click on the file    
+Select `Run 'SpringShopJpaApplication.main()'`   
+
+Option B: From Command Line (Maven)  
+```bash
+mvn spring-boot:run
+```
+
+## Menu Navigation
+
+```text
+Bienvenu dans notre application de gestion d'articles !
+1: Afficher tous les articles sans pagination
+2: Afficher tous les articles avec pagination
+*************************
+3: Ajouter un article
+4: Afficher un article
+5: Supprimer un article
+6: Modifier un article
+**************************
+7: Ajouter une categorie
+8: Afficher une categorie
+9: Supprimer une categorie
+10: Mettre a jour une categorie
+11: Afficher tous les articles d'une categorie
+***********************
+12: Sortir du programme
+```
+## Pagination commands
+
+| Command | Action                      |
+| ------- | --------------------------- |
+| NEXT    | Go to next page             |
+| PREV    | Go to previous page         |
+| PAGE 7  | Set page size to 7 articles |
+| MENU    | Display pagination help     |
+| EXIT    | Return to main menu         |
