@@ -12,6 +12,7 @@ developed as a Spring data JPA training exercise
 - [Installation](#installation)
 - [Database Setup](#database-setup)
 - [Usage](#usage)
+- [Project Structure](#project-structure)
   
 ## Overview
 
@@ -135,3 +136,29 @@ Bienvenu dans notre application de gestion d'articles !
 | PAGE 7  | Set page size to 7 articles |
 | MENU    | Display pagination help     |
 | EXIT    | Return to main menu         |
+
+## Project Structure
+
+```text
+SpringShopJPA/
+├── src/
+│   └── main/
+│       ├── java/fr/fms/
+│       │   ├── SpringShopJpaApplication.java   # Entry point + Exo 1
+│       │   ├── business/
+│       │   │   └── ShopService.java            # Business logic layer
+│       │   ├── dao/
+│       │   │   ├── ArticleRepository.java      # Spring Data JPA repository 
+│       │   │   └── CategoryRepository.java     # Spring Data JPA repository
+│       │   ├── entities/
+│       │   │   ├── Article.java                # Article JPA entity
+│       │   │   └── Category.java               # Category JPA entity
+│       │   └── ui/
+│       │       └── ShopUI.java                 # Console UI layer
+│       └── resources/
+│           └── application.properties          # App & DB configuration
+├── pom.xml                                     # Maven dependencies
+└── README.md                                   # This file
+````
+### License  
+This project is part of a Spring Boot / JPA training exercise and is for educational purposes only
