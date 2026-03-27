@@ -7,6 +7,8 @@ developed as a Spring data JPA training exercise
 
 - [Overview](#overview)
 - [Features](#features)
+- [Architecture](#architecture)
+- [Technologies](#technologies)
 
 ## Overview
 
@@ -35,4 +37,25 @@ It is built with Spring Boot and Spring Data JPA, following a multi-layered arch
 ### Browsing and Search
 - Display all articles of a given category
 - Navigate articles page by page (NEXT,PREV,PAGE x, EXIT)
-- Search articles by brand and description 
+- Search articles by brand and description
+
+## Architecture
+
+The application follows a **multi-layered architecture**:
+
+- **UI Layer** (Console UI) — User interaction and menu display
+- **Business Layer** — Application logic wrapping repository calls
+- **Repository Layer** (Spring Data JPA) — Database access via JpaRepository
+- **Entity Layer** — JPA-mapped domain objects
+- **Database** (MySQL / MariaDB)
+
+## Technologies
+
+- **Language**: Java 17
+- **Framework**: Spring Boot 2.5.3
+- **ORM**: Spring Data JPA / Hibernate
+- **Database**: MySQL 8.x / MariaDB 10.x
+- **Build Tool**: Maven
+- **Code Quality**: SonarQube
+- **Version Control**: Git
+
